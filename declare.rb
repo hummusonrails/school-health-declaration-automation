@@ -32,7 +32,18 @@ def fill_in_sign_in_form(page)
 end
 
 def fill_out_declaration(page)
+  kids_list = page.div(class: /name_student_infile/)
+  kids_list.links.each do |kid|
+    kid.click
+    complete_individual_form(page)
+  end
+end
 
+def complete_individual_form(page)
+  page.checkbox(id: /answer1/).set
+  page.checkbox(id: /answer2/).set
+  canvas = page.canvas(class: /signature-pad/)
+  # move mouse around x, y coordinates of canvas to create a signature
 end
 
 call(ENV['URL'])
