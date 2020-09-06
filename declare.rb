@@ -40,8 +40,9 @@ def fill_out_declaration(page)
 end
 
 def complete_individual_form(page)
-  page.checkbox(id: /answer1/).set
-  page.checkbox(id: /answer2/).set
+  byebug
+  page.label(:class, 'field-label check_label h8').click # first checkbox
+  page.label(:class, 'field-label check_label h8').click # second checkbox
   canvas = page.canvas(class: /signature-pad/)
   # move mouse around x, y coordinates of canvas to create a signature
 end

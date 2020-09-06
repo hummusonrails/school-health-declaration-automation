@@ -58,7 +58,7 @@ DEPENDENCIES
   httparty
   mechanize
   watir
-  webdrivers (~> 4.0)
+  webdrivers
 
 BUNDLED WITH
    2.1.4
