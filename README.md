@@ -24,7 +24,7 @@ You need to provide three environment variables for the automation script:
 
 ### Headless Browsing
 
-The script is set to run in `headless` mode as it navigates to the school website and fills out the form. If you wish, you can set `headless` to `false` and watch it from your computer as it happens instead. To do so open up `declare.rb` and on line 14 change the code to:
+The script is set to run in `headless` mode as it navigates to the school website and fills out the form, which means you won't see it complete the process. If you wish, you can set `headless` to `false` and watch it from your computer as it happens instead. To do so open up `declare.rb` and on line 14 change the code to:
 
 ```ruby
 browser = Watir::Browser.new :chrome, headless: false

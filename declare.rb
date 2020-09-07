@@ -1,4 +1,3 @@
-require 'byebug'
 require 'dotenv'
 Dotenv.load!
 
