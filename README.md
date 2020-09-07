@@ -22,6 +22,14 @@ You need to provide three environment variables for the automation script:
 * `PASSWORD`: Your password you obtained from the Ministry of Education
 * `URL`: The unique school website entry point provided by tik-tak, i.e. (`https://my_school.tik-tak.net/enter_tofes_briut`)
 
+### Headless Browsing
+
+The script is set to run in `headless` mode as it navigates to the school website and fills out the form. If you wish, you can set `headless` to `false` and watch it from your computer as it happens instead. To do so open up `declare.rb` and on line 14 change the code to:
+
+```ruby
+browser = Watir::Browser.new :chrome, headless: false
+```
+
 ## Contributing
 
 Contributions to the code are always welcome. You can either raise an issue to be discussed or submit a pull request directly. 
