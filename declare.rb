@@ -60,25 +60,25 @@ end
 def validate_success(page)
   check_for_errors(page)
   
-  if page.label(class: /answer_send color-red/).visible?
+  if page.label(class: /answer_send color-red/).present?
     puts "Sent form successfully"
   end
 end
 
 def check_for_errors(page)
-  if page.label(class: /fill_answer1 color-red/).visible?
+  if page.label(class: /fill_answer1 color-red/).present?
     puts "First checkbox not checked properly"
   end
 
-  if page.label(class: /fill_answer2 color-red/).visible?
+  if page.label(class: /fill_answer2 color-red/).present?
     puts "Second checkbox not checked properly"
   end
 
-  if page.label(class: /fill_sign color-red/).visible?
+  if page.label(class: /fill_sign color-red/).present?
     puts "Signature not recorded properly"
   end
 
-  if page.label(class: /answer_send color-red hidden/).visible?
+  if page.label(class: /answer_send color-red hidden/).present?
     puts "Form not sent successfully"
   end
 end
