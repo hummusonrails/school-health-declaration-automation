@@ -10,14 +10,22 @@ def call(url)
 end
 
 def get_sign_in_page(url)
-  browser = Watir::Browser.new :chrome, headless: true
+  browser = Watir::Browser.new :chrome, headless: false
   browser.goto(url)
 
   click_first_sign_in(browser)
 end
 
 def click_first_sign_in(page)
-  page.link(:class => 'text-bold color-white edu-connect btn color-blue border-blue btn-connect-briut').click
+  page.link(:class => [
+    'text-bold',
+    'color-white',
+    'edu-connect',
+    'btn',
+    'color-blue',
+    'border-blue',
+    'btn-connect-briut'
+    ]).click
 
   fill_in_sign_in_form(page)
 end
@@ -83,7 +91,12 @@ def check_for_errors(page)
 end
 
 def check_already_submitted?(page)
-  page.link(class: 'answer_send  pdf_wrap_create_briut padding-right-lg-x cursor-pointer').present?
+  page.link(:class => [
+    'answer_send',
+    'pdf_wrap_create_briut',
+    'padding-right-lg-x',
+    'cursor-pointer'
+    ]).present?
 end
 
 call(ENV['URL'])
