@@ -31,9 +31,11 @@ def click_first_sign_in(page)
 end
 
 def fill_in_sign_in_form(page)
-  page.text_field(id: /HIN_USERID/).set(ENV['USERNAME'])
-  page.text_field(id: /Ecom_Password/).set(ENV['PASSWORD'])
-  page.button(name: /loginButton2/).click
+  page.div(:id => 'blocker').click
+  page.send_keys(:tab)
+  page.text_field(:xpath => '/html/body/section/div[1]/div[3]/form/fieldset/input[2]').set(ENV['USERNAME'])
+  page.text_field(:xpath => '/html/body/section/div[1]/div[3]/form/fieldset/span/input[3]').set(ENV['PASSWORD'])
+  page.button(:text => 'כניסה').click
 
   fill_out_declaration(page)
 end
