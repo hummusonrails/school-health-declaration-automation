@@ -106,5 +106,3 @@ class Declare
               ]).present?
   end
 end
-
-Declare.call
