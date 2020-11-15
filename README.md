@@ -32,7 +32,7 @@ browser = Watir::Browser.new :chrome, headless: false
 
 ## Contributing
 
-Contributions to the code are always welcome. You can either raise an issue to be discussed or submit a pull request directly. 
+Contributions to the code are always welcome. You can either raise an issue to be discussed or submit a pull request directly. We try to follow the [GitHub Flow](https://guides.github.com/introduction/flow/) when proposing new features.
 
 ## License
 
