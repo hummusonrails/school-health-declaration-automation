@@ -5,7 +5,7 @@ require_relative "lib/declare/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |spec|
-  spec.name        = "declare"
+  spec.name        = "school_declare"
   spec.version     = Declare::VERSION
   spec.authors     = ["Ben Greenberg"]
   spec.email       = ["ben.greenberg@hey.com"]

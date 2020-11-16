@@ -6,12 +6,24 @@ It can be run manually or can be connected to a scheduler to run once a day.
 
 ## How To Use
 
+### Using The Gem
+
+You can use this software as a Ruby gem by downloading it to your machine from Rubygems:
+
+From the command line:
+* `gem install school_declare`
+
+In your `Gemfile`:
+* `gem 'school_declare'`
+
+### Using The Code
+
 To use the automation script locally on your machine:
 
 * Clone the repository
 * Run `bundle install`
 * Update the values in `.env.sample` and rename it to `.env`. (See (Environment Variables)[#environment-variables] for a description of the values)
-* Run `bundle exec ruby declare.rb`
+* Run `bundle exec ruby bin/declare`
 * The script will output `Sent from successfully` or report what went wrong at the conclusion of its execution
 
 ### Environment Variables
