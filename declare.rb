@@ -56,7 +56,7 @@ class Declare
   end
 
   def fill_out_declaration(page)
-    kids_list = page.div(class: /name_student_infile/)
+    kids_list = page.div(class: /name_student_infile/).wait_until_present
     kids_list.links.each do |kid|
       if check_already_submitted?(page)
         puts 'Form already submited'
@@ -69,13 +69,17 @@ class Declare
 
   def complete_individual_form(page)
     # two checkboxes
-    page.label(xpath: '/html/body/div[1]/section/div/div[3]/form/div/div[2]/b/div[2]/div/label').click
-    page.label(xpath: '/html/body/div[1]/section/div/div[3]/form/div/div[2]/b/div[3]/p/label').click
+    # THESE HAVE BEEN REMOVED FROM THE FORM (maybe temporarily?)
+    # page.label(xpath: '/html/body/div[1]/section/div/div[3]/form/div/div[2]/b/div[2]/div/label').click
+    # page.label(xpath: '/html/body/div[1]/section/div/div[3]/form/div/div[2]/b/div[3]/p/label').click
 
     # canvas element
-    canvas = page.browser.driver.find_element(xpath: '/html/body/div[1]/section/div/div[3]/form/div/div[2]/b/div[6]/div[1]/div/canvas')
+    canvas = page.browser.driver.find_element(xpath: '/html/body/div[1]/section/div/div[3]/form/div/div[2]/div[5]/div[1]/div/canvas')
     page.browser.driver.action.move_to(canvas, 50, 20).click_and_hold.move_to(canvas, 550, 85).release.perform
     page.browser.driver.action.move_to(canvas, 200, 85).click_and_hold.move_to(canvas, 75, 43).release.perform
+    page.browser.driver.action.move_to(canvas, 100, 34).click_and_hold.move_to(canvas, 530, 81).release.perform
+    page.browser.driver.action.move_to(canvas, 73, 64).click_and_hold.move_to(canvas, 387, 39).release.perform
+
     page.button(id: /btn_send/).click
 
     validate_success(page)
