@@ -92,9 +92,9 @@ class Declare
   end
 
   def check_for_errors(page)
-    puts 'First checkbox not checked properly' if page.label(class: /fill_answer1 color-red/).present?
+    # puts 'First checkbox not checked properly' if page.label(class: /fill_answer1 color-red/).present?
 
-    puts 'Second checkbox not checked properly' if page.label(class: /fill_answer2 color-red/).present?
+    # puts 'Second checkbox not checked properly' if page.label(class: /fill_answer2 color-red/).present?
 
     puts 'Signature not recorded properly' if page.label(class: /fill_sign color-red/).present?
 
