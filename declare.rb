@@ -62,7 +62,7 @@ class Declare
         puts 'Form already submited'
         next
       end
-      kid.click
+      kid.click!
       complete_individual_form(page)
     end
   end
@@ -101,7 +101,7 @@ class Declare
     puts 'Form not sent successfully' if page.label(class: /answer_send color-red hidden/).present?
   end
 
-  def check_already_submitted?(page)
-    page.link(:xpath => '/html/body/div[1]/section/div/div[2]/div/div[2]/div/div[1]/h4/div').present?
+  def check_already_submitted?(kid)
+    kid.link(:xpath => '/html/body/div[1]/section/div/div[2]/div/div[1]/div/div[1]/h4/div/a').present?
   end
 end
