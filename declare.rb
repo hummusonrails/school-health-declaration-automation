@@ -77,7 +77,7 @@ class Declare
     canvas = page.browser.driver.find_element(xpath: '/html/body/div[1]/section/div/div[3]/form/div/div[2]/div[5]/div[1]/div/canvas')
     page.browser.driver.action.move_to(canvas, 50, 20).click_and_hold.move_to(canvas, 50, 85).perform
     page.browser.driver.action.move_to(canvas, 200, 85).click_and_hold.move_to(canvas, 75, 43).perform
-    # page.browser.driver.action.move_to(canvas, 100, 34).click_and_hold.move_to(canvas, 530, 81).perform
+    page.browser.driver.action.move_to(canvas, 100, 34).click_and_hold.move_to(canvas, 264, 81).perform
     page.browser.driver.action.move_to(canvas, 73, 64).click_and_hold.move_to(canvas, 387, 39).perform
 
     page.button(id: /btn_send/).click
