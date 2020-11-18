@@ -56,13 +56,13 @@ class Declare
   end
 
   def fill_out_declaration(page)
-    kids_list = page.div(:xpath => '/html/body/div[1]/section/div/div[2]/div').wait_until(&:present?)
-    kids_list.links(:href => /child_id/).each do |kid|
+    kids = page.divs(:class => /name_student_infile/).wait_until(&:present?)
+    kids.each do |kid|
       if check_already_submitted?(kid)
         puts 'Form already submited'
         next
       end
-      kid.click!
+      kid.click if kid.href
       complete_individual_form(page)
     end
   end
@@ -102,6 +102,6 @@ class Declare
   end
 
   def check_already_submitted?(kid)
-    kid.link(:xpath => '/html/body/div[1]/section/div/div[2]/div/div[1]/div/div[1]/h4/div/a').present?
+    kid.link(:class => /answer_send/).present?
   end
 end
