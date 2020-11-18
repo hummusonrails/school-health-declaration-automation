@@ -56,7 +56,7 @@ class Declare
   end
 
   def fill_out_declaration(page)
-    kids = page.divs(:class => /name_student_infile/).wait_until(&:present?)
+    kids = page.divs(:class => /name_student_infile/)
     kids.each do |kid|
       if check_already_submitted?(kid)
         puts 'Form already submited'
