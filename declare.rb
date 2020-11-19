@@ -67,7 +67,7 @@ class Declare
         puts 'Form already submited'
         next
       end
-      kid.click if kid.href
+      kid.link.click! if kid.link.href
       complete_individual_form(page)
     end
   end
