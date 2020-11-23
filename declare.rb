@@ -69,6 +69,8 @@ class Declare
       end
       kid.link.click! if kid.link.href
       complete_individual_form(page)
+      check_for_errors(page)
+      validate_success(kid)
     end
   end
 
@@ -88,24 +90,20 @@ class Declare
     page.browser.driver.action.move_to(canvas, 73, 64).click_and_hold.move_to(canvas, 387, 39).perform
 
     page.button(id: /btn_send/).click
-
-    validate_success(page)
   end
 
-  def validate_success(page)
-    check_for_errors(page)
-
-    puts 'Sent form successfully' if page.label(class: /answer_send color-red/).present?
+  def validate_success(kid)
+    puts 'Sent form successfully' if kid.link(class: /answer_send  pdf_wrap_create_briut/).present?
   end
 
   def check_for_errors(page)
-    # puts 'First checkbox not checked properly' if page.label(class: /fill_answer1 color-red/).present?
+    # raise 'First checkbox not checked properly' if page.label(class: /fill_answer1 color-red/).present?
 
-    # puts 'Second checkbox not checked properly' if page.label(class: /fill_answer2 color-red/).present?
+    # raise 'Second checkbox not checked properly' if page.label(class: /fill_answer2 color-red/).present?
 
-    puts 'Signature not recorded properly' if page.label(class: /fill_sign color-red/).present?
+    raise 'Signature not recorded properly' if page.label(class: /fill_sign color-red/).present?
 
-    puts 'Form not sent successfully' if page.label(class: /answer_send color-red hidden/).present?
+    raise 'Form not sent successfully' if page.label(class: /answer_send color-red hidden/).present?
   end
 
   def check_already_submitted?(kid)
