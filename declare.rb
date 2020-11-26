@@ -70,8 +70,8 @@ class Declare
       kid.link.click! if kid.link.href
       complete_individual_form(page)
       check_for_errors(page)
-      validate_success(kid)
     end
+    validate_success(page, kids.count)
   end
 
   def complete_individual_form(page) # rubocop:disable Metrics/AbcSize
@@ -92,8 +92,19 @@ class Declare
     page.button(id: /btn_send/).click
   end
 
-  def validate_success(kid)
-    puts 'Sent form successfully' if kid.link(class: /answer_send  pdf_wrap_create_briut/).present?
+  def validate_success(page, kid_count)
+    confirmation_group = page.links(class: /answer_send  pdf_wrap_create_briut/)
+    
+    if confirmation_group && confirmation_group.count == kid_count
+      puts "Sent form successfully for #{kid_count} kids."
+    end
+
+    if confirmation_group && confirmation_group.count != kid_count
+      puts <<~HEREDOC
+        Form sent successfully for some of the kids but not all.
+        There were #{kid_count} kids, but only #{confirmation_group.count} confirmed.
+      HEREDOC
+    end
   end
 
   def check_for_errors(page)
