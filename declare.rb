@@ -30,7 +30,7 @@ class Declare
   end
 
   def go_to_sign_in_page
-    browser = Watir::Browser.new :chrome, headless: false
+    browser = Watir::Browser.new :chrome, headless: true
     browser.goto(@url)
 
     click_first_sign_in(browser)
