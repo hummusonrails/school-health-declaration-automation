@@ -71,6 +71,7 @@ class Declare
       complete_individual_form(page)
       check_for_errors(page)
     end
+    page.refresh
     validate_success(page, kids.count)
   end
 
@@ -94,7 +95,6 @@ class Declare
 
   def validate_success(page, kid_count)
     confirmation_group = page.links(class: /answer_send  pdf_wrap_create_briut/)
-    
     if confirmation_group && confirmation_group.count == kid_count
       puts "Sent form successfully for #{kid_count} kids."
     end
