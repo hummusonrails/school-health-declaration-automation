@@ -20,9 +20,9 @@ jobs:
           bundle install --jobs 4 --retry 3
       - name: Set Credentials
         run: |
-          ls $HOME
-          touch $HOME/.env
-          printf -- "---\nUSERNAME: ${USERNAME}\nPASSWORD: ${PASSWORD}\nURL: ${URL}\n" > $HOME/.env
+          ls $HOME/work
+          touch $HOME/work/school-health-declaration-automation/school-health-declaration-automation/.env
+          printf -- "---\nUSERNAME: ${USERNAME}\nPASSWORD: ${PASSWORD}\nURL: ${URL}\n" > $HOME/work/school-health-declaration-automation/school-health-declaration-automation/.env
         env:
           URL: ${{secrets.URL}}
           USERNAME: ${{secrets.USERNAME}}
