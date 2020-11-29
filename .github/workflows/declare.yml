@@ -1,0 +1,27 @@
+name: Health Declarations Submission
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.7.2
+      - name: Bundle Setup
+        run: |
+          gem update --system 3.1.4 -N
+          gem install --no-document bundler
+          bundle config path ${{ github.workspace }}/vendor/bundle
+      - name: Bundle Install
+        run: |
+          bundle install --jobs 4 --retry 3
+      - name: Submit Health Forms
+        run: |
+          bundle exec ruby bin/declare
+        env:
+          URL: ${{secrets.URL}}
+          USERNAME: ${{secrets.USERNAME}}
+          PASSWORD: ${{secrets.PASSWORD}}
