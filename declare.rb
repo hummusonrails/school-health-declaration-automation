@@ -69,7 +69,10 @@ class Declare
       end
       kid.link.click! if kid.link.href
       complete_individual_form(page)
+      check_for_errors(page)
     end
+    page.refresh
+    validate_success(page, kids.count)
   end
 
   def complete_individual_form(page) # rubocop:disable Metrics/AbcSize
@@ -88,24 +91,30 @@ class Declare
     page.browser.driver.action.move_to(canvas, 73, 64).click_and_hold.move_to(canvas, 387, 39).perform
 
     page.button(id: /btn_send/).click
-
-    validate_success(page)
   end
 
-  def validate_success(page)
-    check_for_errors(page)
+  def validate_success(page, kid_count)
+    confirmation_group = page.links(class: /answer_send  pdf_wrap_create_briut/)
+    if confirmation_group && confirmation_group.count == kid_count
+      puts "Sent form successfully for #{kid_count} kids."
+    end
 
-    puts 'Sent form successfully' if page.label(class: /answer_send color-red/).present?
+    if confirmation_group && confirmation_group.count != kid_count
+      puts <<~HEREDOC
+        Form sent successfully for some of the kids but not all.
+        There were #{kid_count} kids, but only #{confirmation_group.count} confirmed.
+      HEREDOC
+    end
   end
 
   def check_for_errors(page)
-    # puts 'First checkbox not checked properly' if page.label(class: /fill_answer1 color-red/).present?
+    # raise 'First checkbox not checked properly' if page.label(class: /fill_answer1 color-red/).present?
 
-    # puts 'Second checkbox not checked properly' if page.label(class: /fill_answer2 color-red/).present?
+    # raise 'Second checkbox not checked properly' if page.label(class: /fill_answer2 color-red/).present?
 
-    puts 'Signature not recorded properly' if page.label(class: /fill_sign color-red/).present?
+    raise 'Signature not recorded properly' if page.label(class: /fill_sign color-red/).present?
 
-    puts 'Form not sent successfully' if page.label(class: /answer_send color-red hidden/).present?
+    raise 'Form not sent successfully' if page.label(class: /answer_send color-red hidden/).present?
   end
 
   def check_already_submitted?(kid)
