@@ -13,6 +13,21 @@ jobs:
       - uses: actions/setup-ruby@v1
         with:
           ruby-version: '2.7'
+      - name: Ruby gem cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ github.workspace }}/vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+      - name: Bundle Setup
+        run: |
+          gem update --system 3.1.4 -N
+          gem install --no-document bundler
+          bundle config path ${{ github.workspace }}/vendor/bundle
+      - name: Bundle Install
+        run: |
+          bundle install --jobs 4 --retry 3
       - name: Release Gem
         uses: cadwallion/publish-rubygems-action@b8b21c36ec884b3ad47707724b30e54330bca267
         env:
