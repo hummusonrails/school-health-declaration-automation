@@ -18,10 +18,14 @@ jobs:
       - name: Bundle Install
         run: |
           bundle install --jobs 4 --retry 3
-      - name: Submit Health Forms
+      - name: Set Credentials
         run: |
-          bundle exec ruby bin/declare
+          touch $HOME/.env
+          printf -- "---\nUSERNAME: ${USERNAME}\nPASSWORD: ${PASSWORD}\nURL: ${URL}\n" > $HOME/.env
         env:
           URL: ${{secrets.URL}}
           USERNAME: ${{secrets.USERNAME}}
           PASSWORD: ${{secrets.PASSWORD}}
+      - name: Submit Health Forms
+        run: |
+          bundle exec ruby bin/declare
