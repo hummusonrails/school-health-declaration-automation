@@ -94,6 +94,10 @@ class Declare
   end
 
   def validate_success(page, kid_count)
+    if kid_count == 0 || kid_count.nil?
+      puts "All kids were previously submitted. Come back next school day!"
+    end
+
     confirmation_group = page.links(class: /answer_send  pdf_wrap_create_briut/)
     if confirmation_group && confirmation_group.count == kid_count
       puts "Sent form successfully for #{kid_count} kids."
