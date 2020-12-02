@@ -62,7 +62,7 @@ class Declare
 
   def fill_out_declaration(page)
     kids = page.divs(class: /name_student_infile/)
-    kids.first.wait_until_present
+    kids.first.wait_until(&:present?)
     kids.each do |kid|
       if check_already_submitted?(kid)
         puts 'Form already submited'
