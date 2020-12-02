@@ -1,5 +1,7 @@
 name: Health Declarations Submission
 on:
+  schedule:
+    - cron: "0 5 * * 0-4"
   workflow_dispatch:
 jobs:
   build:
@@ -21,11 +23,16 @@ jobs:
       - name: Set Credentials
         run: |
           touch $HOME/work/school-health-declaration-automation/school-health-declaration-automation/.env
-          printf -- "---\nUSERNAME: ${USERNAME}\nPASSWORD: ${PASSWORD}\nURL: ${URL}\n" > $HOME/work/school-health-declaration-automation/school-health-declaration-automation/.env
+          printf -- "---\nUSERNAME: ${USERNAME}\nPASSWORD: ${PASSWORD}\nURL: ${URL}\nSEND_SMS: ${SEND_SMS}\nVONAGE_API_KEY: ${VONAGE_API_KEY}\nVONAGE_API_SECRET: ${VONAGE_API_SECRET}\nVONAGE_NUMBER: ${VONAGE_NUMBER}\nTO_NUMBER: ${TO_NUMBER}\n" > $HOME/work/school-health-declaration-automation/school-health-declaration-automation/.env
         env:
           URL: ${{secrets.URL}}
           USERNAME: ${{secrets.USERNAME}}
           PASSWORD: ${{secrets.PASSWORD}}
+          SEND_SMS: ${{secrets.SEND_SMS}}
+          VONAGE_API_KEY: ${{secrets.VONAGE_API_KEY}}
+          VONAGE_API_SECRET: ${{secrets.VONAGE_API_SECRET}}
+          VONAGE_NUMBER: ${{secrets.VONAGE_NUMBER}}
+          TO_NUMBER: ${{secrets.TO_NUMBER}}
       - name: Submit Health Forms
         run: |
           bundle exec ruby bin/declare

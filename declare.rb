@@ -6,6 +6,7 @@ Dotenv.load!
 require 'nokogiri'
 require 'webdrivers/chromedriver'
 require 'watir'
+require 'vonage'
 
 # Declare health declaration for schools.
 #
@@ -62,8 +63,11 @@ class Declare
 
   def fill_out_declaration(page)
     kids = page.divs(class: /name_student_infile/)
+    kids.first.wait_until(&:present?)
+    kids_count = kids.count
     kids.each do |kid|
       if check_already_submitted?(kid)
+        kids_count = kids_count - 1
         puts 'Form already submited'
         next
       end
@@ -72,7 +76,7 @@ class Declare
       check_for_errors(page)
     end
     page.refresh
-    validate_success(page, kids.count)
+    validate_success(page, kids_count)
   end
 
   def complete_individual_form(page) # rubocop:disable Metrics/AbcSize
@@ -94,21 +98,24 @@ class Declare
   end
 
   def validate_success(page, kid_count)
-    if kid_count == 0 || kid_count.nil?
-      puts "All kids were previously submitted. Come back next school day!"
-    end
-
+    message = ''
     confirmation_group = page.links(class: /answer_send  pdf_wrap_create_briut/)
-    if confirmation_group && confirmation_group.count == kid_count
-      puts "Sent form successfully for #{kid_count} kids."
-    end
 
-    if confirmation_group && confirmation_group.count != kid_count
-      puts <<~HEREDOC
+    if kid_count == 0 || kid_count.nil?
+      message = 'All kids were previously submitted. Come back next school day!'
+      puts message
+    elsif confirmation_group && confirmation_group.count == kid_count
+      message = "Sent form successfully for #{kid_count} kids."
+      puts message
+    elsif kid_count && kid_count > 0 && confirmation_group.count != kid_count
+      message = <<~HEREDOC
         Form sent successfully for some of the kids but not all.
         There were #{kid_count} kids, but only #{confirmation_group.count} confirmed.
       HEREDOC
+      puts message
     end
+
+    send_sms(message) if ENV['SEND_SMS']
   end
 
   def check_for_errors(page)
@@ -123,5 +130,16 @@ class Declare
 
   def check_already_submitted?(kid)
     kid.link(class: /answer_send/).present?
+  end
+
+  def send_sms(message)
+    client = Vonage::Client.new(api_key: ENV['VONAGE_API_KEY'], api_secret: ENV['VONAGE_API_SECRET'])
+
+    client.sms.send(
+      to: ENV['TO_NUMBER'],
+      from: ENV['VONAGE_NUMBER'],
+      text: message,
+      'status-report-req': false
+    )
   end
 end
