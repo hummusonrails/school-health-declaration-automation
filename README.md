@@ -42,6 +42,16 @@ The script is set to run in `headless` mode as it navigates to the school websit
 browser = Watir::Browser.new :chrome, headless: false
 ```
 
+### Send SMS Update
+
+This script also provides the ability to send an SMS update after completion. To enable this feature you will need to have a [Vonage Account](https://dashboard.nexmo.com) and provide the following additional values in your `.env` file:
+
+* `SEND_SMS=true`: A boolean set to true to enable the SMS feature
+* `VONAGE_API_KEY`: Set this to your Vonage API key
+* `VONAGE_API_SECRET`: Set this to your Vonage API secret
+* `VONAGE_NUMBER`: Set this to the phone number you provisioned from Vonage for SMS delivery
+* `TO_NUMBER`: Set this to the receipient number for the SMS to be delivered to
+
 ## Contributing
 
 Contributions to the code are always welcome. You can either raise an issue to be discussed or submit a pull request directly. We try to follow the [GitHub Flow](https://guides.github.com/introduction/flow/) when proposing new features.
