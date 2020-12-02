@@ -26,6 +26,10 @@ jobs:
           URL: ${{secrets.URL}}
           USERNAME: ${{secrets.USERNAME}}
           PASSWORD: ${{secrets.PASSWORD}}
-      - name: Submit Health Forms
+      - id: submit
+        name: Submit Health Forms
         run: |
-          bundle exec ruby bin/declare
+          echo ::set-output name=results::"$(bundle exec ruby bin/declare)"
+      - name: Send SMS Update
+        run: |
+          echo ${{steps.submit.outputs.results}}
