@@ -6,6 +6,7 @@ Dotenv.load!
 require 'nokogiri'
 require 'webdrivers/chromedriver'
 require 'watir'
+require 'vonage'
 
 # Declare health declaration for schools.
 #
@@ -95,21 +96,28 @@ class Declare
   end
 
   def validate_success(page, kid_count)
+    message = ''
     if kid_count == 0 || kid_count.nil?
-      puts "All kids were previously submitted. Come back next school day!"
+      message = 'All kids were previously submitted. Come back next school day!'
+      puts message
     end
 
     confirmation_group = page.links(class: /answer_send  pdf_wrap_create_briut/)
     if confirmation_group && confirmation_group.count == kid_count
-      puts "Sent form successfully for #{kid_count} kids."
+      message = "Sent form successfully for #{kid_count} kids."
+      puts message
     end
 
     if confirmation_group && confirmation_group.count != kid_count
-      puts <<~HEREDOC
+      message = <<~HEREDOC
         Form sent successfully for some of the kids but not all.
         There were #{kid_count} kids, but only #{confirmation_group.count} confirmed.
       HEREDOC
+
+      puts message
     end
+
+    send_sms(message) if ENV['SEND_SMS']
   end
 
   def check_for_errors(page)
@@ -124,5 +132,16 @@ class Declare
 
   def check_already_submitted?(kid)
     kid.link(class: /answer_send/).present?
+  end
+
+  def send_sms(message)
+    client = Vonage::Client.new(api_key: ENV['VONAGE_API_KEY'], api_secret: ENV['VONAGE_API_SECRET'])
+
+    client.sms.send(
+      to: ENV['TO_NUMBER'],
+      from: ENV['VONAGE_NUMBER'],
+      text: message,
+      'status-report-req': false
+    )
   end
 end

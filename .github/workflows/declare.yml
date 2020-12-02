@@ -21,15 +21,16 @@ jobs:
       - name: Set Credentials
         run: |
           touch $HOME/work/school-health-declaration-automation/school-health-declaration-automation/.env
-          printf -- "---\nUSERNAME: ${USERNAME}\nPASSWORD: ${PASSWORD}\nURL: ${URL}\n" > $HOME/work/school-health-declaration-automation/school-health-declaration-automation/.env
+          printf -- "---\nUSERNAME: ${USERNAME}\nPASSWORD: ${PASSWORD}\nURL: ${URL}\nSEND_SMS: ${SEND_SMS}\nVONAGE_API_KEY: ${VONAGE_API_KEY}\nVONAGE_API_SECRET: ${VONAGE_API_SECRET}\nVONAGE_NUMBER: ${VONAGE_NUMBER}\nTO_NUMBER: ${TO_NUMBER}\n" > $HOME/work/school-health-declaration-automation/school-health-declaration-automation/.env
         env:
           URL: ${{secrets.URL}}
           USERNAME: ${{secrets.USERNAME}}
           PASSWORD: ${{secrets.PASSWORD}}
-      - id: submit
-        name: Submit Health Forms
+          SEND_SMS: ${{secrets.SEND_SMS}}
+          VONAGE_API_KEY: ${{secrets.VONAGE_API_KEY}}
+          VONAGE_API_SECRET: ${{secrets.VONAGE_API_SECRET}}
+          VONAGE_NUMBER: ${{secrets.VONAGE_NUMBER}}
+          TO_NUMBER: ${{secrets.TO_NUMBER}}
+      - name: Submit Health Forms
         run: |
-          echo ::set-output name=results::"$(bundle exec ruby bin/declare)"
-      - name: Send SMS Update
-        run: |
-          echo ${{steps.submit.outputs.results}}
+          bundle exec ruby bin/declare
