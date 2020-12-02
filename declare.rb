@@ -112,7 +112,7 @@ class Declare
       puts message
     end
 
-    if confirmation_group && confirmation_group.count != kid_count
+    if kid_count && kid_count > 0 && confirmation_group.count != kid_count
       message = <<~HEREDOC
         Form sent successfully for some of the kids but not all.
         There were #{kid_count} kids, but only #{confirmation_group.count} confirmed.
