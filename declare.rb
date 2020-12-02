@@ -64,8 +64,10 @@ class Declare
   def fill_out_declaration(page)
     kids = page.divs(class: /name_student_infile/)
     kids.first.wait_until(&:present?)
+    kids_count = kids.count
     kids.each do |kid|
       if check_already_submitted?(kid)
+        kids_count = kids_count - 1
         puts 'Form already submited'
         next
       end
@@ -74,7 +76,7 @@ class Declare
       check_for_errors(page)
     end
     page.refresh
-    validate_success(page, kids.count)
+    validate_success(page, kids_count)
   end
 
   def complete_individual_form(page) # rubocop:disable Metrics/AbcSize
@@ -99,12 +101,14 @@ class Declare
     message = ''
     if kid_count == 0 || kid_count.nil?
       message = 'All kids were previously submitted. Come back next school day!'
+
       puts message
     end
 
     confirmation_group = page.links(class: /answer_send  pdf_wrap_create_briut/)
     if confirmation_group && confirmation_group.count == kid_count
       message = "Sent form successfully for #{kid_count} kids."
+
       puts message
     end
 
