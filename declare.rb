@@ -99,25 +99,19 @@ class Declare
 
   def validate_success(page, kid_count)
     message = ''
+    confirmation_group = page.links(class: /answer_send  pdf_wrap_create_briut/)
+
     if kid_count == 0 || kid_count.nil?
       message = 'All kids were previously submitted. Come back next school day!'
-
       puts message
-    end
-
-    confirmation_group = page.links(class: /answer_send  pdf_wrap_create_briut/)
-    if confirmation_group && confirmation_group.count == kid_count
+    elsif confirmation_group && confirmation_group.count == kid_count
       message = "Sent form successfully for #{kid_count} kids."
-
       puts message
-    end
-
-    if kid_count && kid_count > 0 && confirmation_group.count != kid_count
+    elsif kid_count && kid_count > 0 && confirmation_group.count != kid_count
       message = <<~HEREDOC
         Form sent successfully for some of the kids but not all.
         There were #{kid_count} kids, but only #{confirmation_group.count} confirmed.
       HEREDOC
-
       puts message
     end
 
