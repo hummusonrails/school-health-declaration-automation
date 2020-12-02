@@ -30,7 +30,7 @@ class Declare
   end
 
   def go_to_sign_in_page
-    browser = Watir::Browser.new :chrome, headless: false
+    browser = Watir::Browser.new :chrome, headless: true
     browser.goto(@url)
 
     click_first_sign_in(browser)
@@ -62,6 +62,7 @@ class Declare
 
   def fill_out_declaration(page)
     kids = page.divs(class: /name_student_infile/)
+    kids.first.wait_until_present
     kids.each do |kid|
       if check_already_submitted?(kid)
         puts 'Form already submited'
