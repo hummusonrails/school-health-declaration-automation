@@ -24,6 +24,14 @@ class Declare
     @url = url
     @username = username
     @password = password
+
+    validate!
+  end
+
+  def validate!
+    raise ArgumentError, 'Missing URL environment variable' unless ENV['URL']
+    raise ArgumentError, 'Missing USERNAME environment variable' unless ENV['USERNAME']
+    raise ArgumentError, 'Missing PASSWORD environment variable' unless ENV['PASSWORD']
   end
 
   def call
