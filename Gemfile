@@ -4,3 +4,5 @@ gem 'dotenv'
 gem 'watir'
 gem 'webdrivers'
 gem 'vonage'
+
+gem 'rspec', :groups => [:development, :test]

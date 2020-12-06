@@ -2,6 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     childprocess (3.0.0)
+    diff-lcs (1.4.4)
     dotenv (2.7.6)
     jwt (2.2.2)
     mini_portile2 (2.4.0)
@@ -10,6 +11,19 @@ GEM
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
     regexp_parser (1.7.1)
+    rspec (3.10.0)
+      rspec-core (~> 3.10.0)
+      rspec-expectations (~> 3.10.0)
+      rspec-mocks (~> 3.10.0)
+    rspec-core (3.10.0)
+      rspec-support (~> 3.10.0)
+    rspec-expectations (3.10.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.10.0)
+    rspec-mocks (3.10.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.10.0)
+    rspec-support (3.10.0)
     rubyzip (2.3.0)
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
@@ -33,6 +47,7 @@ PLATFORMS
 
 DEPENDENCIES
   dotenv
+  rspec
   vonage
   watir
   webdrivers
