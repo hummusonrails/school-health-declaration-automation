@@ -23,6 +23,7 @@ jobs:
           brew install libxml2 libxslt
           bundle config build.nokogiri --use-system-libraries
           gem install nokogiri -- --with-xslt-dir=/home/linuxbrew/.linuxbrew/opt/libxslt
+          gem install pkg-config -v "~> 1.1"
           bundle install --jobs 4 --retry 3
       - name: Set Credentials
         run: |
