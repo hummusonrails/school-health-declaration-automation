@@ -1,0 +1,35 @@
+name: Antigen Test Declaration Submission
+on:
+  schedule:
+    - cron: "0 6 * * 0,3"
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 3.1.0
+      - name: Bundle Setup
+        run: |
+          gem update --system 3.1.4 -N
+          gem install --no-document bundler
+          bundle config path ${{ github.workspace }}/vendor/bundle
+      - name: Bundle Install
+        run: |
+          bundle install --jobs 4 --retry 3
+      - name: Set Credentials
+        run: |
+          touch $HOME/work/school-health-declaration-automation/school-health-declaration-automation/.env
+          printf -- "---\nURL: ${URL}\nPARENT_NAME: ${PARENT_NAME}\nPARENT_TZ: ${PARENT_TZ}\nCHILDRENS_TZ: ${CHILDRENS_TZ}\nCHILDRENS_NAMES: ${CHILDRENS_NAMES}\n" > $HOME/work/school-health-declaration-automation/school-health-declaration-automation/.env
+        env:
+          URL: ${{secrets.URL}}
+          PARENT_NAME: ${{secrets.PARENT_NAME}}
+          PARENT_TZ: ${{secrets.PARENT_TZ}}
+          CHILDRENS_TZ: ${{secrets.CHILDRENS_TZ}}
+          CHILDRENS_NAMES: ${{secrets.CHILDRENS_NAMES}}
+      - name: Submit Antigen Test Health Form
+        run: |
+          bundle exec ruby bin/declare_antigen

@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.email       = ["ben.greenberg@hey.com"]
   spec.homepage    = "https://github.com/bencgreenberg/school-health-declaration-automation"
   spec.summary     = "Automate the sending of health declaration forms for Israeli schools."
-  spec.description = "A gem to help send the daily health forms for Israeli schools using the tik-tak platform."
+  spec.description = "A gem to help send the daily health forms for Israeli schools."
   spec.license     = "MIT"
   spec.executables   << 'declare'
 
