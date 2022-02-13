@@ -9,9 +9,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-ruby@v1
+      - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.7.2
+          ruby-version: 3.1.0
       - name: Bundle Setup
         run: |
           gem update --system 3.1.4 -N
