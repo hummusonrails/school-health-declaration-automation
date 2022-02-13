@@ -19,6 +19,7 @@ jobs:
           bundle config path ${{ github.workspace }}/vendor/bundle
       - name: Bundle Install
         run: |
+          brew install libxml2 libxslt
           bundle config build.nokogiri --use-system-libraries
           bundle install --jobs 4 --retry 3
       - name: Set Credentials
