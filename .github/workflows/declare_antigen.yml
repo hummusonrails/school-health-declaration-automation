@@ -16,10 +16,10 @@ jobs:
         run: |
           gem update --system 3.3.3 -N
           gem install --no-document bundler
-          bundle config build.nokogiri --use-system-libraries
           bundle config path ${{ github.workspace }}/vendor/bundle
       - name: Bundle Install
         run: |
+          bundle config build.nokogiri --use-system-libraries
           bundle install --jobs 4 --retry 3
       - name: Set Credentials
         run: |
