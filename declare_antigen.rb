@@ -42,7 +42,7 @@ class DeclareAntigen
   end
 
   def go_to_form
-    browser = Watir::Browser.new :chrome, headless: true
+    browser = Watir::Browser.new :chrome, headless: false
     browser.goto(@url)
 
     fill_out_form(browser)
