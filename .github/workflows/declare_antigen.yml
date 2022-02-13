@@ -14,7 +14,7 @@ jobs:
           ruby-version: 3.1.0
       - name: Bundle Setup
         run: |
-          gem update --system 3.1.4 -N
+          gem update --system 3.3.3 -N
           gem install --no-document bundler
           bundle config path ${{ github.workspace }}/vendor/bundle
       - name: Bundle Install
