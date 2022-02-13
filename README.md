@@ -6,6 +6,21 @@ It can be run manually or can be connected to a scheduler to run once a day.
 
 ## How To Use
 
+### Use as a GitHub Action
+
+To use this without needing to run any code, you can use it as a GitHub Action in your own GitHub account. To do so follow these steps:
+
+1. Fork this repository to your account
+
+![](readme_images/point_to_fork.png)
+
+2. Create the secrets in your new repository by going to Settings > Secrets > Actions and clicking the "New Repository Secret" for each new secret. Add the correct name for the secret in the "Name" field" and your value in the "Value" field. For the list of secrets you need refer to the [Environment Variables](#environment-variables) section of this README.
+
+![](readme_images/new_repo_secret.png)
+
+3. You can check the status of your automation by clicking on the "Actions" tab in your repository top navigation bar and then clicking on the "Antigen Test Declaration..." Workflow on the left-hand side navigation. A green check means it worked, and a red x mark means something went wrong. You can click on each individual item in the table to see the details.
+
+
 ### Using The Gem
 
 You can use this software as a Ruby gem by downloading it to your machine from Rubygems:
