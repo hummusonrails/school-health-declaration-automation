@@ -1,5 +1,19 @@
 # School Health Declaration Automation Script
 
+- [School Health Declaration Automation Script](#school-health-declaration-automation-script)
+  * [How To Use](#how-to-use)
+    + [Use as a GitHub Action](#use-as-a-github-action)
+    + [Using The Gem](#using-the-gem)
+    + [Using The Code](#using-the-code)
+      - [Daily health declaration automation](#daily-health-declaration-automation)
+      - [Twice weekly antigen test declaration](#twice-weekly-antigen-test-declaration)
+    + [Environment Variables](#environment-variables)
+    + [Headless Browsing](#headless-browsing)
+  * [Troubleshooting](#troubleshooting)
+    + ["element click intercepted..."](#-element-click-intercepted-)
+  * [Contributing](#contributing)
+  * [License](#license)
+
 This is an automation script that will fill out the school's daily health declaration requirement for each child in the parent portal dashboard.
 
 It can be run manually or can be connected to a scheduler to run once a day.
@@ -19,7 +33,6 @@ To use this without needing to run any code, you can use it as a GitHub Action i
 ![](readme_images/new_repo_secret.png)
 
 3. You can check the status of your automation by clicking on the "Actions" tab in your repository top navigation bar and then clicking on the "Antigen Test Declaration..." Workflow on the left-hand side navigation. A green check means it worked, and a red x mark means something went wrong. You can click on each individual item in the table to see the details.
-
 
 ### Using The Gem
 
@@ -89,6 +102,14 @@ The script is set to run in `headless` mode as it navigates to the school websit
 ```ruby
 browser = Watir::Browser.new :chrome, headless: false
 ```
+
+## Troubleshooting
+
+### "element click intercepted..."
+
+If you are running the school antigen test declaration form and it fails with an error about the "element click intercepted" it is most likely because the reCAPTCHA on the website prompted for further verification.
+
+There is no way to make the script work at this point. You need to manually go to the website and fill it out. The reCAPTCHA *may* reset the next time the script runs and not require the extra verification again.
 
 ## Contributing
 

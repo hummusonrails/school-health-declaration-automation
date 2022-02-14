@@ -6,7 +6,6 @@ Dotenv.load!
 require 'nokogiri'
 require 'webdrivers/chromedriver'
 require 'watir'
-require 'vonage'
 
 # Declare health declaration for schools.
 #
@@ -122,8 +121,6 @@ class Declare
       HEREDOC
       puts message
     end
-
-    send_sms(message) if ENV['SEND_SMS']
   end
 
   def check_for_errors(page)
@@ -138,16 +135,5 @@ class Declare
 
   def check_already_submitted?(kid)
     kid.link(class: /answer_send/).present?
-  end
-
-  def send_sms(message)
-    client = Vonage::Client.new(api_key: ENV['VONAGE_API_KEY'], api_secret: ENV['VONAGE_API_SECRET'])
-
-    client.sms.send(
-      to: ENV['TO_NUMBER'],
-      from: ENV['VONAGE_NUMBER'],
-      text: message,
-      'status-report-req': false
-    )
   end
 end
