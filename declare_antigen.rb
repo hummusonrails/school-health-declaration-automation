@@ -70,8 +70,8 @@ class DeclareAntigen
   end
 
   def complete_individual_form(count = nil, page) # rubocop:disable Metrics/AbcSize
-    page.text_field(id: /txtMisparZehutHore/).set(@parent_tz)
-    page.text_field(id: /txtShemPratiHore/).set(@parent_name)
+    page.text_field(id: /txtMisparZehutHore/).wait_until(&:present?).set(@parent_tz)
+    page.text_field(id: /txtShemPratiHore/).wait_until(&:present?).set(@parent_name)
     
     if @childrens_tz.is_a?(Array)
       page.text_field(class: /mispar-zehut-yeled form-control/).set(@childrens_tz[count])
