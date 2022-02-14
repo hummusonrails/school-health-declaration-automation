@@ -5,7 +5,7 @@ Dotenv.load!
 
 require 'nokogiri'
 require 'webdrivers/chromedriver'
-require 'watir'
+require 'watir'    
 
 # Declare antigen test health declaration for schools.
 #
