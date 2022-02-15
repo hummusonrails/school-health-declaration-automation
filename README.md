@@ -28,7 +28,7 @@ To use this without needing to run any code, you can use it as a GitHub Action i
 
 ![](readme_images/point_to_fork.png)
 
-2. Create the secrets in your new repository by going to Settings > Secrets > Actions and clicking the "New Repository Secret" for each new secret. Add the correct name for the secret in the "Name" field" and your value in the "Value" field. For the list of secrets you need refer to the [Environment Variables](#environment-variables) section of this README.
+2. Create the secrets in your new repository by going to Settings > Secrets > Actions and clicking the "**New Repository Secret**" button for each new secret (don't accidentally add them as "**Environment secrets**"). Add the correct name for the secret in the "Name" field" and your value in the "Value" field. For the list of secrets you need refer to the [Environment Variables](#environment-variables) section of this README.
 
 ![](readme_images/new_repo_secret.png)
 
