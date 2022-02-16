@@ -5,7 +5,7 @@ Dotenv.load!
 
 require 'nokogiri'
 require 'webdrivers/chromedriver'
-require 'watir'    
+require 'watir'
 
 # Declare antigen test health declaration for schools.
 #
@@ -42,7 +42,7 @@ class DeclareAntigen
   end
 
   def go_to_form
-    browser = Watir::Browser.new :chrome, headless: true
+    browser = Watir::Browser.new(:chrome, {:chromeOptions => {:args => ['--headless', '--window-size=1200x600']}})
     browser.goto(@url)
 
     fill_out_form(browser)
