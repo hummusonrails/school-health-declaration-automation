@@ -57,7 +57,7 @@ To use the automation script locally on your machine:
 
 * Clone the repository
 * Run `bundle install`
-* Update the following values in `.env.sample` and rename it to `.env`. (See (Environment Variables)[#environment-variables] for a description of the values)
+* Update the following values in `.env.sample` and rename it to `.env`. (See [Environment Variables](#environment-variables) for a description of the values)
   * USERNAME
   * PASSWORD
   * URL
@@ -70,7 +70,7 @@ To use the antigen test declaration automation script locally on your machine:
 
 * Clone the repository
 * Run `bundle install`
-* Update the following values in `.env.sample` and rename it to `.env`. (See (Environment Variables)[#environment-variables] for a description of the values)
+* Update the following values in `.env.sample` and rename it to `.env`. (See [Environment Variables](#environment-variables) for a description of the values)
   * URL
   * PARENT_TZ
   * PARENT_NAME
@@ -93,7 +93,7 @@ You need to provide the following environment variables for the twice weekly ant
   * `PARENT_TZ`: A parent's teudat zehut number
   * `PARENT_NAME`: A parent's name **in Hebrew**
   * `CHILDRENS_TZ`: The teudat zehut number or numbers of the child/children. **If more than one child, separate with a single "," and NO SPACE.**
-  * `CHILDRENS_NAMES`: The name of names of the child/children. **If more than one child, separate with a cingle "," and NO SPACE.**
+  * `CHILDRENS_NAMES`: The name of names of the child/children. **If more than one child, separate with a single "," and NO SPACE.**
 
 ### Headless Browsing
 
