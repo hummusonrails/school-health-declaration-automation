@@ -5,7 +5,9 @@ Dotenv.load!
 
 require 'nokogiri'
 require 'webdrivers/chromedriver'
-require 'watir'    
+require 'watir'
+require 'useragents'
+require 'selenium-webdriver'
 
 # Declare antigen test health declaration for schools.
 #
@@ -42,7 +44,20 @@ class DeclareAntigen
   end
 
   def go_to_form
-    browser = Watir::Browser.new :chrome, headless: true
+    agent = UserAgents.rand()
+    options = Selenium::WebDriver::Chrome::Options.new
+    options.add_argument('--headless')
+    options.add_argument('--disable-gpu')
+    options.add_argument('--window-size=1200x600')
+    options.add_argument('--disable-infobars')
+    options.add_argument('--start-maximized')
+    options.add_argument("--disable-blink-features")
+    options.add_argument('--disable-blink-features=AutomationControlled')
+    options.add_argument("--user-agent='#{agent}'")
+    driver = Selenium::WebDriver.for :chrome, options: options
+    driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => false})")
+    driver.execute_cdp('Network.setUserAgentOverride', userAgent: "'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.53 Safari/537.36'" )
+    browser = Watir::Browser.new(driver)
     browser.goto(@url)
 
     fill_out_form(browser)
@@ -70,23 +85,33 @@ class DeclareAntigen
   end
 
   def complete_individual_form(count = nil, page) # rubocop:disable Metrics/AbcSize
+    sleep 2
     page.text_field(id: /txtMisparZehutHore/).wait_until(&:present?).set(@parent_tz)
+    sleep 3
     page.text_field(id: /txtShemPratiHore/).wait_until(&:present?).set(@parent_name)
     
     if @childrens_tz.is_a?(Array)
+      sleep 2
       page.text_field(class: /mispar-zehut-yeled form-control/).set(@childrens_tz[count])
+      sleep 2
       page.text_field(class: /shem-prati-yeled form-control/).set(@childrens_names[count])
+      sleep 4
       page.radio(name: /rdoResult_0/).click
     else
+      sleep 1
       page.text_field(class: /mispar-zehut-yeled form-control/).set(@childrens_tz)
+      sleep 3
       page.text_field(class: /shem-prati-yeled form-control/).set(@childrens_names)
+      sleep 2
       page.radio(name: /rdoResult_0/).click
     end
   end
 
   def submit_form(page)
     until page.div(id: /bot/).exists? do sleep 3 end
+    page.execute_script("window.scrollBy(0,200)")
     page.iframe.click
+    sleep 5
     page.button(id: /cmdSend/).click
   end
 
