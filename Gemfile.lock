@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/liqites/useragents-rb
+  revision: 017584c295d4d4f578d141a295dcbd3b1d7d6bce
+  specs:
+    useragents (0.1.6)
+      nokogiri
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -23,6 +30,8 @@ GEM
       rspec-support (~> 3.10.0)
     rspec-support (3.10.0)
     rubyzip (2.3.0)
+    selenium-devtools (0.98.0)
+      websocket (~> 1.0)
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
@@ -33,6 +42,7 @@ GEM
       nokogiri (~> 1.6)
       rubyzip (>= 1.3.0)
       selenium-webdriver (>= 3.0, < 4.0)
+    websocket (1.2.9)
 
 PLATFORMS
   ruby
@@ -41,6 +51,8 @@ DEPENDENCIES
   byebug
   dotenv
   rspec
+  selenium-devtools
+  useragents!
   watir
   webdrivers
 
